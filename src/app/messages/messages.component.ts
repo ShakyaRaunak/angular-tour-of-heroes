@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MessageService} from '../message.service';
 
 @Component({
   selector: 'app-messages',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-
-  constructor() { }
+  // Declare a private messageService property - Angular injects the singleton MessageService into it on creating the MessagesComponent.
+  constructor(public messageService: MessageService) {
+  }
 
   ngOnInit() {
   }
-
 }

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Hero} from '../hero';
-import {HEROES} from '../mock-heroes';
 import {HeroService} from '../hero.service';
 
 @Component({
@@ -13,20 +12,21 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[];
   selectedHero: Hero;
 
+  // When Angular creates a HeroesComponent, the DI system sets the heroService parameter to the singleton instance of HeroService.
+  constructor(private heroService: HeroService) {
+  }
+
+  // The constructor shouldn't call a function that makes HTTP requests to a remote server. Instead, call getHeroes() inside the ngOnInit.
+  ngOnInit() {
+    this.getHeroes();
+  }
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
   }
 
   getHeroes(): void {
-    HeroService.getHeroes()
+    this.heroService.getHeroes()
       .subscribe(heroes => this.heroes = heroes);
   }
-
-  constructor(private heroService: HeroService) {
-  }
-
-  ngOnInit() {
-    this.getHeroes();
-  }
-
 }
